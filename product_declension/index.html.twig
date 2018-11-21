@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProductDeclension index{% endblock %}
+
+{% block body %}
+    <h1>ProductDeclension index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reference</th>
+                <th>PriceTe</th>
+                <th>PriceTi</th>
+                <th>Tax</th>
+                <th>WeightQuantity</th>
+                <th>Unity</th>
+                <th>Active</th>
+                <th>DateAdd</th>
+                <th>DateUpdate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product_declension in product_declensions %}
+            <tr>
+                <td>{{ product_declension.id }}</td>
+                <td>{{ product_declension.reference }}</td>
+                <td>{{ product_declension.priceTe }}</td>
+                <td>{{ product_declension.priceTi }}</td>
+                <td>{{ product_declension.tax }}</td>
+                <td>{{ product_declension.weightQuantity }}</td>
+                <td>{{ product_declension.unity }}</td>
+                <td>{{ product_declension.active ? 'Yes' : 'No' }}</td>
+                <td>{{ product_declension.dateAdd ? product_declension.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ product_declension.dateUpdate ? product_declension.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('product_declension_show', {'id': product_declension.id}) }}">show</a>
+                    <a href="{{ path('product_declension_edit', {'id': product_declension.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_declension_new') }}">Create new</a>
+{% endblock %}

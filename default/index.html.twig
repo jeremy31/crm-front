@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil CRM{% endblock %}
+
+{% block body %}
+
+    <div id="accueil">
+        <div id="menu">
+            <div class="sous-menu">
+                <a href="{{ path('product_index') }}"><div class="bloc-menu">Matières premières</div></a>
+                <a href="{{ path('recipe_index') }}"><div class="bloc-menu">Produits finis</div></a>
+                <a href="{{ path('sale_index') }}"><div class="bloc-menu">Ventes</div></a>
+            </div>
+            <div class="sous-menu">
+                <a href="{{ path('recipe_export_prestashop') }}"><div class="bloc-menu">Export site</div></a>
+                <a href="{{ path('recipe_impression') }}"><div class="bloc-menu">Impression</div></a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

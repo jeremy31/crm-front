@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link href="{{ asset('css/global.css') }}" rel="stylesheet" />
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <h1><a href="{{ path('default_index') }}">Le Château en Thé - CRM</a></h1>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

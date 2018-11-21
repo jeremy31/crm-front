@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ProductDeclension{% endblock %}
+
+{% block body %}
+    <h1>Create new ProductDeclension</h1>
+
+    {{ include('product_declension/_form.html.twig') }}
+
+    <a href="{{ path('product_declension_index') }}">back to list</a>
+{% endblock %}

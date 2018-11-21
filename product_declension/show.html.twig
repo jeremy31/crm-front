@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProductDeclension{% endblock %}
+
+{% block body %}
+    <h1>ProductDeclension</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product_declension.id }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ product_declension.reference }}</td>
+            </tr>
+            <tr>
+                <th>PriceTe</th>
+                <td>{{ product_declension.priceTe }}</td>
+            </tr>
+            <tr>
+                <th>PriceTi</th>
+                <td>{{ product_declension.priceTi }}</td>
+            </tr>
+            <tr>
+                <th>Tax</th>
+                <td>{{ product_declension.tax }}</td>
+            </tr>
+            <tr>
+                <th>WeightQuantity</th>
+                <td>{{ product_declension.weightQuantity }}</td>
+            </tr>
+            <tr>
+                <th>Unity</th>
+                <td>{{ product_declension.unity }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ product_declension.active ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>DateAdd</th>
+                <td>{{ product_declension.dateAdd ? product_declension.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateUpdate</th>
+                <td>{{ product_declension.dateUpdate ? product_declension.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_declension_index') }}">back to list</a>
+
+    <a href="{{ path('product_declension_edit', {'id': product_declension.id}) }}">edit</a>
+
+    {{ include('product_declension/_delete_form.html.twig') }}
+{% endblock %}

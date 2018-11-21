@@ -1,0 +1,92 @@
+
+{% block body %}
+
+<style>
+    body {
+        width: 1000px;
+        /*border: 1px solid black;*/
+        font-family: Arial;
+    }
+    h1 {
+        margin: auto;
+        margin-bottom: 15px;
+    }
+    h1, h3 {
+        text-align: center;
+    }
+    table {
+        width: 100%;
+        font-size: 18px;
+    }
+    th {
+        width: 20%;
+        padding: 6px 0;
+    }
+    td {
+        padding: 6px 0;
+    }
+    td.infusion {
+        width: 15%;
+        text-align: center;
+    }
+    td.prix {
+        width: 2%;
+        text-align: center;
+    }
+</style>
+
+<!--<h1>
+    <img src="/images/titre.png" width="200" />
+    <img src="/images/Theiere.jpg" width="120"/>
+</h1>-->
+
+<table>
+    {% for primary, recipes in recipesOrdered %}
+        <tr>
+            <th colspan="2" style="color: #9AA47C;">{{ primary }}</th>
+        </tr>
+        {% for recipe in recipes %}
+            <!--<tr>
+                <th>{{ recipe.name }}</th>
+                <td>
+
+                    {% for product in recipe.getProductsByUnity %}
+                        {% if product.product.product.id == 53 %}
+                            Thé vert de Chine, Jasmin
+                        {% else %}
+                            {{ product.product }}{% if loop.last == false %},{% endif %}
+                        {% endif %}
+                        
+                    {% endfor %}
+                </td>
+                <td class="infusion">
+                    {{ recipe.brewTemp }}°<br>
+                    {{ recipe.brewTime }}"
+                </td>
+                <td class="prix">{{ recipe.price|number_format(2) }} €</td>
+            </tr>-->
+            <tr>
+                <td>
+                    <strong>{{ recipe.name }} :</strong>
+                    {% for product in recipe.getProductsByUnity %}
+                        {% if product.product.product.id == 53 %}
+                            Thé vert de Chine, Jasmin
+                        {% else %}
+                            {{ product.product }}{% if loop.last == false %},{% endif %}
+                        {% endif %}
+                        
+                    {% endfor %}
+                    <!--<em>température : {{ recipe.brewTemp }}°</em>,
+                    <em>temps d'infusion : {{ recipe.brewTimeString }}</em>-->
+                </td>
+                <td class="prix">
+                    {{ recipe.price|number_format(2) }} €
+                </td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+</table>
+
+<!--<h3>www.le-chateau-en-the.com</h3>-->
+
+{% endblock %}

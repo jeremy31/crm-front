@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+    <h1>Matières premières</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Bio</th>
+                <th>Type</th>
+                <th>Fournisseur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.bio ? 'OUI' : 'NON' }}</td>
+                <td>{{ product.type }}</td>
+                <td>
+                    <table class="table">
+                        {% for declension in product.declensions %}
+                            <tr>
+                                <td>Ref : {{ declension.reference }}</td>
+                                <td>
+                                    {{ declension.priceTe|number_format(2) }} €<br>
+                                    + {{ declension.tax }}%
+                                </td>
+                                <td>{{ declension.priceTi|number_format(2) }} €</td>
+                                <td>
+                                    {% if declension.unity == 'weight' %}
+                                        {{ declension.weightQuantity }}g
+                                    {% else %}
+                                        Lot de {{ declension.weightQuantity }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ declension.active ? 'Actif' : 'Non actif' }}</td>
+                                <td>
+                                    <a href="{{ path('product_declension_edit', {'id': declension.id}) }}">Modifier</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>
+                    <a href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_new') }}">Create new</a>
+{% endblock %}

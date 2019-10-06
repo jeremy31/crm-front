@@ -3,7 +3,7 @@
 {% block title %}Recipe index{% endblock %}
 
 {% block body %}
-    <h1>Produits finis</h1>
+    <h1>Catalogue</h1>
 
     <p>
         Nombre de produits à vendre : {{ stock }}<br>
@@ -15,52 +15,169 @@
             <tr>
                 <th>Nom</th>
                 <th>Produits</th>
+                <th>Conditionnement</th>
                 <th>Achat</th>
-                <th>Vente</th>
                 <th>Marge</th>
+                <th>Vente</th>
+                <th>Prix au Kg</th>
                 <th class="no-print">Stock</th>
-                <th class="no-print">actions</th>
             </tr>
         </thead>
         <tbody>
         {% for recipe in recipes %}
-            <tr {% if recipe.active == false %}class="no-print"{% endif %}>
-                <th>{{ recipe.name }}</th>
-                <td style="font-size: 11px;">
-                    <table class="liste-ingredients">
-                        {% for product in recipe.products %}
-                            <tr>
-                                <th>{{ product.product }}</th>
-                                <td>
-                                    {% if product.product.unity == 'weight' %}
-                                        {{ product.quantityByRecipe|number_format(2) }}g
-                                    {% else %}
-                                        {{ product.quantityByRecipe|number_format() }}
-                                    {% endif %}
-                                </td>
-                                <td>{{ product.priceByRecipe|number_format(2) }} €</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-                <td>{{ recipe.priceOrder|number_format(2) }} €</td>
-                <td>
-                    <s>{{ recipe.priceProposed|number_format(2) }} €</s><br>
-                    {{ recipe.price|number_format(2) }} €
-                </td>
-                <td>
-                    {{ recipe.margin|number_format(2) }} €<br>
-                    (x{{ recipe.marginCoefficient|number_format(2) }})
-                </td>
-                <td class="no-print">
-                    {{ recipe.stock }}<br>
-                    {{ recipe.valorization|number_format(2) }} €
-                </td>
-                <td class="no-print">
-                    <a href="{{ path('recipe_show', {'id': recipe.id}) }}">show</a>
-                    <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">edit</a>
-                </td>
-            </tr>
+			{% if recipe.weight != 70 %}
+				<tr {% if recipe.active == false %}class="no-print"{% endif %}>
+					<th>
+						<a href="{{ path('recipe_show', {'id': recipe.id}) }}">{{ recipe.name }}</a><br>
+						<br>
+						{{ recipe.title }}<br>
+						<br>
+						<a href="{{ path('recipe_edit', {'id': recipe.id}) }}">modifier</a>
+					</th>
+					<td style="font-size: 11px;">
+						<table class="liste-ingredients">
+							{% for product in recipe.products %}
+								<tr>
+									<th>{{ product.product }}</th>
+									<td>
+										{% if product.product.unity == 'weight' %}
+											{{ product.percentByRecipe|number_format(2) }} %
+										{% else %}
+											{{ product.quantityByRecipe|number_format() }}
+										{% endif %}
+									</td>
+								</tr>
+							{% endfor %}
+						</table>
+					</td>
+					<td>Unique</td>
+					<td>
+						{% if recipe.getPriceOrder() == 0 %}
+							?
+						{% else %}
+							{{ recipe.getPriceOrder()|number_format(2) }} €
+						{% endif %}
+					</td>
+					<td>
+						{% if recipe.getPriceOrder() == 0 %}
+							?
+						{% else %}
+							{{ recipe.getMargin()|number_format(2) }} €
+							(x{{ recipe.getMarginCoefficient()|number_format(2) }})
+						{% endif %}
+					</td>
+					<td>
+						{{ recipe.getPrice()|number_format(2) }} €
+					</td>
+					<td>
+						{% if recipe.weight == 0 %}
+							?
+						{% else %}
+							{{ recipe.getPriceByWeight()|number_format(2) }} € / Kg
+						{% endif %}
+					</td>
+					<td class="no-print">
+						{{ recipe.getStock() }}<br>
+						{{ recipe.getValorization()|number_format(2) }} €
+					</td>
+				</tr>
+			{% else %}
+				<tr {% if recipe.active == false %}class="no-print"{% endif %}>
+					<th rowspan="4">
+						<a href="{{ path('recipe_show', {'id': recipe.id}) }}">{{ recipe.name }}</a><br>
+						<br>
+						{{ recipe.title }}<br>
+						<br>
+						<a href="{{ path('recipe_edit', {'id': recipe.id}) }}">modifier</a>
+					</th>
+					<td rowspan="4" style="font-size: 11px;">
+						<table class="liste-ingredients">
+							{% for product in recipe.products %}
+								<tr>
+									<th>{{ product.product }}</th>
+									<td>
+										{% if product.product.unity == 'weight' %}
+											{{ product.percentByRecipe|number_format(2) }} %
+										{% else %}
+											{{ product.quantityByRecipe|number_format() }}
+										{% endif %}
+									</td>
+								</tr>
+							{% endfor %}
+						</table>
+					</td>
+					<td>Boîte 20g</td>
+					<td>{{ recipe.getPriceOrder(20)|number_format(2) }} €</td>
+					<td>
+						{{ recipe.getMargin(20)|number_format(2) }} €
+						(x{{ recipe.getMarginCoefficient(20)|number_format(2) }})
+					</td>
+					<td>
+						{{ recipe.getPrice(20)|number_format(2) }} €
+					</td>
+					<td>
+						{{ recipe.getPriceByWeight(20)|number_format(2) }} € / Kg
+					</td>
+					<td class="no-print">
+						{{ recipe.getStock(20) }}<br>
+						{{ recipe.getValorization(20)|number_format(2) }} €
+					</td>
+				</tr>
+				<tr {% if recipe.active == false %}class="no-print"{% endif %}>
+					<td>Boîte 45g</td>
+					<td>{{ recipe.getPriceOrder(45)|number_format(2) }} €</td>
+					<td>
+						{{ recipe.getMargin(45)|number_format(2) }} €
+						(x{{ recipe.getMarginCoefficient(45)|number_format(2) }})
+					</td>
+					<td>
+						{{ recipe.getPrice(45)|number_format(2) }} €
+					</td>
+					<td>
+						{{ recipe.getPriceByWeight(45)|number_format(2) }} € / Kg
+					</td>
+					<td class="no-print">
+						{{ recipe.getStock(45) }}<br>
+						{{ recipe.getValorization(45)|number_format(2) }} €
+					</td>
+				</tr>
+				<tr {% if recipe.active == false %}class="no-print"{% endif %}>
+					<td>Sachet 70g</td>
+					<td>{{ recipe.getPriceOrder(70)|number_format(2) }} €</td>
+					<td>
+						{{ recipe.getMargin(70)|number_format(2) }} €
+						(x{{ recipe.getMarginCoefficient(70)|number_format(2) }})
+					</td>
+					<td>
+						{{ recipe.getPrice(70)|number_format(2) }} €
+					</td>
+					<td>
+						{{ recipe.getPriceByWeight(70)|number_format(2) }} € / Kg
+					</td>
+					<td class="no-print">
+						{{ recipe.getStock() }}<br>
+						{{ recipe.getValorization()|number_format(2) }} €
+					</td>
+				</tr>
+				<tr {% if recipe.active == false %}class="no-print"{% endif %}>
+					<td>Boîte 150g</td>
+					<td>{{ recipe.getPriceOrder(150)|number_format(2) }} €</td>
+					<td>
+						{{ recipe.getMargin(150)|number_format(2) }} €
+						(x{{ recipe.getMarginCoefficient(150)|number_format(2) }})
+					</td>
+					<td>
+						{{ recipe.getPrice(150)|number_format(2) }} €
+					</td>
+					<td>
+						{{ recipe.getPriceByWeight(150)|number_format(2) }} € / Kg
+					</td>
+					<td class="no-print">
+						{{ recipe.getStock(150) }}<br>
+						{{ recipe.getValorization(150)|number_format(2) }} €
+					</td>
+				</tr>
+			{% endif %}
         {% else %}
             <tr>
                 <td colspan="8">no records found</td>

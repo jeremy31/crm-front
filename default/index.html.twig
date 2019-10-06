@@ -8,11 +8,12 @@
         <div id="menu">
             <div class="sous-menu">
                 <a href="{{ path('product_index') }}"><div class="bloc-menu">Matières premières</div></a>
-                <a href="{{ path('recipe_index') }}"><div class="bloc-menu">Produits finis</div></a>
-                <a href="{{ path('sale_index') }}"><div class="bloc-menu">Ventes</div></a>
+                <a href="{{ path('recipe_index') }}"><div class="bloc-menu">Catalogue</div></a>
+                <a href="{{ path('recipe_stocks') }}"><div class="bloc-menu">Stocks</div></a>
             </div>
             <div class="sous-menu">
                 <a href="{{ path('recipe_export_prestashop') }}"><div class="bloc-menu">Export site</div></a>
+                <a href="{{ path('recipe_export_prestashop_declension') }}"><div class="bloc-menu">Export site décli</div></a>
                 <a href="{{ path('recipe_impression') }}"><div class="bloc-menu">Impression</div></a>
             </div>
         </div>

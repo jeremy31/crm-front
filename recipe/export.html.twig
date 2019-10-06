@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Export{% endblock %}
+
+{% block body %}
+
+    {% if error %}
+		<h3>Erreur lors de l'export !</h3>
+		<p>{{ msg }}</p>
+    {% else %}
+		<h3>Détails de l'export :</h3>
+		<p>
+			{% for message in msg %}
+				<span class="alert {{ message.0 }}">{{ message.1 }}</span>
+			{% endfor %}
+		</p>
+    {% endif %}
+	
+{% endblock %}

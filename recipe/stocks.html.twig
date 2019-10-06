@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class %}stocks{% endblock %}
+
+{% block title %}Recipe index{% endblock %}
+
+{% block h1 %}{% endblock %}
+
+{% block body %}
+    <table class="table table-stocks-thead">
+        <thead>
+            <tr>
+                <th class="table-stocks-name">Nom</th>
+                <th class="table-stocks-data">20g</th>
+                <th class="table-stocks-data">45g</th>
+                <th class="table-stocks-data">70g</th>
+                <th class="table-stocks-data">150g</th>
+            </tr>
+        </thead>
+    </table>
+    <table class="table table-stocks">
+        <tbody>
+        {% for recipe in recipes_classic %}
+            <tr data-recipe="{{ recipe.id }}">
+                <th class="table-stocks-name">
+                    <a href="{{ path('recipe_show', {'id': recipe.id}) }}">{{ recipe.name }}</a>
+                </th>
+                <td class="table-stocks-data" data-weight="20"><span data-order="p" class="bt-stock">+</span><span class="value">{{ recipe.getStock(20) }}</span><span data-order="m" class="bt-stock">-</span></td>
+                <td class="table-stocks-data" data-weight="45"><span data-order="p" class="bt-stock">+</span><span class="value">{{ recipe.getStock(45) }}</span><span data-order="m" class="bt-stock">-</span></td>
+                <td class="table-stocks-data" data-weight="70"><span data-order="p" class="bt-stock">+</span><span class="value">{{ recipe.getStock(70) }}</span><span data-order="m" class="bt-stock">-</span></td>
+                <td class="table-stocks-data" data-weight="150"><span data-order="p" class="bt-stock">+</span><span class="value">{{ recipe.getStock(150) }}</span><span data-order="m" class="bt-stock">-</span></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p><br></P>
+    <h1 style="text-align: center">Coffrets</h1>
+    <table class="table table-stocks">
+        <tbody>
+        {% for recipe in recipes_others %}
+            <tr data-recipe="{{ recipe.id }}">
+                <th class="table-stocks-name">
+                    <a href="{{ path('recipe_show', {'id': recipe.id}) }}">{{ recipe.name }}</a>
+                </th>
+                <td colspan="4" class="table-stocks-data" data-weight="70"><span data-order="p" class="bt-stock">+</span><span class="value">{{ recipe.getStock(70) }}</span><span data-order="m" class="bt-stock">-</span></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

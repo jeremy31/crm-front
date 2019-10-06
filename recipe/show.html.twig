@@ -8,12 +8,12 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Prix de vente</th>
-                <td>{{ recipe.price|number_format(2) }} €</td>
+                <th>Titre</th>
+                <td>{{ recipe.title }}</td>
             </tr>
             <tr>
-                <th>Weight</th>
-                <td>{{ recipe.weight }}g</td>
+                <th>Prix de vente</th>
+                <td>{{ recipe.price|number_format(2) }} €</td>
             </tr>
             <tr>
                 <th>Actif</th>
@@ -40,6 +40,15 @@
                         {% endfor %}
                     </table>
                     <a href="{{ path('recipe_product_new') }}">Ajouter un ingrédient</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Etiquette</th>
+                <td style="font-size: 11px;">
+                    Ingrédients :
+					{% for product in recipe.products %}
+						{{ product.product|lower }}{% if not loop.last %},{% endif %}
+					{% endfor %}
                 </td>
             </tr>
         </tbody>
